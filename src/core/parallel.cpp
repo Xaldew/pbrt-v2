@@ -43,9 +43,11 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <sys/param.h>
-#include <sys/sysctl.h>
 #include <errno.h>
-#endif 
+#endif
+#if defined(PBRT_IS_APPLE)
+#include <sys/sysctl.h>
+#endif
 #include <list>
 
 // Parallel Local Declarations

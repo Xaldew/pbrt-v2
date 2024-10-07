@@ -202,10 +202,12 @@ class VolumeIntegrator;
 #define PBRT_L1_CACHE_LINE_SIZE 64
 #endif
 #ifndef PBRT_POINTER_SIZE
-#if defined(__amd64__) || defined(_M_X64)
+#if INTPTR_MAX == INT64_MAX
 #define PBRT_POINTER_SIZE 8
 #elif defined(__i386__) || defined(_M_IX86)
 #define PBRT_POINTER_SIZE 4
+#else
+#error Unknown pointer size or missing size macros!
 #endif
 #endif
 #ifndef PBRT_HAS_64_BIT_ATOMICS
