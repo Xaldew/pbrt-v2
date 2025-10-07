@@ -225,12 +225,12 @@ ImageFilm *CreateImageFilm(const ParamSet &params, Filter *filter) {
     string filename = params.FindOneString("filename", "");
     if (PbrtOptions.imageFile != "") {
         if (filename != "") {
-            Warning("Output filename supplied on command line, \"%s\", ignored "
-                    "due to filename provided in scene description file, \"%s\".",
-                    PbrtOptions.imageFile.c_str(), filename.c_str());
+            Warning(
+                "Output filename supplied on command line, \"%s\" is overriding "
+                "filename provided in scene description file, \"%s\".",
+                PbrtOptions.imageFile.c_str(), filename.c_str());
         }
-        else
-            filename = PbrtOptions.imageFile;
+        filename = PbrtOptions.imageFile;
     }
     if (filename == "")
 #ifdef PBRT_HAS_OPENEXR
