@@ -128,7 +128,15 @@ int TerminalWidth() {
 #else
     struct winsize w;
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &w) < 0) {
-        fprintf(stderr, "Error in ioctl() in TerminalWidth(): %d", errno);
+        // ENOTTY is fine and expected, e.g. if output is being piped to a file.
+        if (errno != ENOTTY) {
+            static bool warned = false;
+            if (!warned) {
+                warned = true;
+                fprintf(stderr, "Error in ioctl() in TerminalWidth(): %d\n",
+                        errno);
+            }
+        }
         return 80;
     }
     return w.ws_col;
